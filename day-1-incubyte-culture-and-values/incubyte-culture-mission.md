@@ -26,3 +26,5 @@
 ```
 Remote work is not just a policy; it’s a mindset. We trust you to bring your best, and we’ll do the same for you.
 ```
+
+Reference : https://incubyte.co/remote-working-at-incubyte-embracing-a-culture-of-structured-flexibility/
