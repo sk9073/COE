@@ -13,4 +13,8 @@ describe StringCalculator do
   it 'allows new lines between numbers instead of commas' do
     expect(StringCalculator.new.add("1\n2,3")).to eq(6)
   end
+
+  it 'supports a custom delimiter declared on the first line' do
+    expect(StringCalculator.new.add("//;\n1;2")).to eq(3)
+  end
 end
