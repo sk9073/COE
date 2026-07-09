@@ -23,6 +23,6 @@ describe StringCalculator do
   end
 
   it 'ignores numbers greater than 1000 in the resulting sum' do
-    expect { StringCalculator.new.add('1,1001,2')}.to eq(3)
+    expect(StringCalculator.new.add('1,1001,2')).to eq(3)
   end
 end

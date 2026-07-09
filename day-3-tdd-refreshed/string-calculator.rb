@@ -13,7 +13,8 @@ class StringCalculator
     negatives = parsed.select { |n| n < 0 }
     raise "negatives not allowed #{negatives.join(',')}" unless negatives.empty?
 
-    parsed.sum
+    numbers_less_than_1000 = parsed.select {|n| n < 1000}
+    numbers_less_than_1000.sum
   end
 end
 
