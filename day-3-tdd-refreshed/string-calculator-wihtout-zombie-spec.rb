@@ -25,4 +25,8 @@ describe StringCalculator do
   it 'ignores numbers greater than 1000 in the resulting sum' do
     expect(StringCalculator.new.add('1,1001,2')).to eq(3)
   end
+
+  it 'supports a custom delimiter of any length wrapped in square brackets' do
+    expect(StringCalculator.new.add("//[***]\n1***2***3")).to eq(6)
+  end
 end
