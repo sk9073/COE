@@ -6,7 +6,9 @@ class StringCalculator
     if numbers.start_with?('//')
       first_line, numbers = numbers.split("\n", 2)
       delimiter = first_line[2..]
-      delimiter = delimiter[1..-2] if delimiter.start_with?('[') && delimiter.end_with?(']')
+      if delimiter.start_with?('[')
+        delimiter = Regexp.union(delimiter.scan(/\[(.*?)\]/).flatten)
+      end
     end
 
     parsed = numbers.split(delimiter).map(&:to_i)
