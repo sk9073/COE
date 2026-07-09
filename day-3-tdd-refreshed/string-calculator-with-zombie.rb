@@ -23,4 +23,3 @@ class StringCalculator
     numbers.split(delimiter).map(&:to_i).sum
   end
 end
-
