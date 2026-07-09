@@ -17,4 +17,10 @@ describe StringCalculator do
   it 'supports a custom delimiter declared on the first line' do
     expect(StringCalculator.new.add("//;\n1;2")).to eq(3)
   end
+
+  it 'raises an error when input is not a string' do
+    expect { StringCalculator.new.add(nil) }.to raise_error(TypeError, 'input must be a string')
+    expect { StringCalculator.new.add(123) }.to raise_error(TypeError, 'input must be a string')
+    expect { StringCalculator.new.add([1, 2]) }.to raise_error(TypeError, 'input must be a string')
+  end
 end
