@@ -29,4 +29,8 @@ describe StringCalculator do
   it 'supports a custom delimiter of any length wrapped in square brackets' do
     expect(StringCalculator.new.add("//[***]\n1***2***3")).to eq(6)
   end
+
+  it 'supports multiple custom delimiters declared on the first line' do
+    expect(StringCalculator.new.add("//[*][%]\n1*2%3")).to eq(6)
+  end
 end
