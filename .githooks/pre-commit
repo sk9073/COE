@@ -1,0 +1,40 @@
+#!/bin/sh
+
+# Get list of staged Ruby files relative to repository root
+staged_files=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(rb|gemspec)$|^coe-to-do-app/(Gemfile|Rakefile|config\.ru)$')
+
+if [ -z "$staged_files" ]; then
+  exit 0
+fi
+
+# We need to run bundle exec rubocop from coe-to-do-app directory.
+# Let's convert staged files paths to be relative to coe-to-do-app.
+files_to_lint=""
+for file in $staged_files; do
+  # Check if the file is inside the coe-to-do-app directory
+  if echo "$file" | grep -q "^coe-to-do-app/"; then
+    # Strip the coe-to-do-app/ prefix
+    rel_file=$(echo "$file" | sed 's|^coe-to-do-app/||')
+    files_to_lint="$files_to_lint $rel_file"
+  fi
+done
+
+if [ -z "$files_to_lint" ]; then
+  exit 0
+fi
+
+echo "Running RuboCop on staged Ruby files..."
+
+# Change directory to coe-to-do-app and run rubocop
+cd coe-to-do-app || exit 1
+
+# Run RuboCop
+bundle exec rubocop --force-exclusion $files_to_lint
+status=$?
+
+if [ $status -ne 0 ]; then
+  echo "RuboCop found offenses. Commit aborted!"
+  exit 1
+fi
+
+exit 0

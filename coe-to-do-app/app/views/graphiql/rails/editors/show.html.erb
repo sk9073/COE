@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= GraphiQL::Rails.config.title || 'GraphiQL' %></title>
+
+    <%# graphiql-rails ships its assets as Sprockets `//= require` bundles, which %>
+    <%# Propshaft (this app's asset pipeline) doesn't expand. Include each file %>
+    <%# individually, in dependency order, instead of the concatenated bundle. %>
+    <%= stylesheet_link_tag("graphiql/rails/graphiql-0.12.0") %>
+    <%= stylesheet_link_tag("graphiql/rails/application") %>
+
+    <%= javascript_include_tag("graphiql/rails/react-16.7.0") %>
+    <%= javascript_include_tag("graphiql/rails/react-dom-16.7.0") %>
+    <%= javascript_include_tag("graphiql/rails/fetch-0.10.1") %>
+    <%= javascript_include_tag("graphiql/rails/graphiql-0.12.0") %>
+    <%= javascript_include_tag("graphiql/rails/graphiql_show") %>
+  </head>
+  <body>
+    <%= content_tag :div, 'Loading...', id: 'graphiql-container', data: {
+      graphql_endpoint_path: graphql_endpoint_path,
+      initial_query: GraphiQL::Rails.config.initial_query,
+      logo: GraphiQL::Rails.config.logo,
+      headers: GraphiQL::Rails.config.resolve_headers(self),
+      query_params: GraphiQL::Rails.config.query_params
+    } %>
+  </body>
+</html>

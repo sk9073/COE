@@ -36,3 +36,7 @@
 /config/master.key
 
 /tmp/cache/bootsnap/*
+
+# Ignore local vendor bundle
+/vendor/bundle
+

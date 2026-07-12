@@ -1,0 +1,23 @@
+module Mutations
+  class CreateList < BaseMutation
+    # arguments passed to the `resolve` method
+    argument :title, String, required: true
+    argument :description, String, required: true
+    argument :status, String, required: true
+
+    # return type from the mutation
+    type Types::ListType
+
+    def resolve(title: nil, description: nil, status: nil)
+      List.create!(
+        title: title,
+        description: description,
+        status: status,
+      )
+    rescue ActiveRecord::RecordInvalid => e
+      raise GraphQL::ExecutionError.new(e.record.errors.full_messages.join(", "))
+    rescue ActiveRecord::RecordNotUnique
+      raise GraphQL::ExecutionError.new("Title has already been taken")
+    end
+  end
+end
