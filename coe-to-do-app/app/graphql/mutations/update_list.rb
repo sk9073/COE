@@ -4,7 +4,7 @@ module Mutations
     argument :id, ID, required: true
     argument :title, String, required: false
     argument :description, String, required: false
-    argument :status, String, required: false
+    argument :status, Types::ListStatusEnum, required: false
 
     # return type from the mutation
     type Types::ListType

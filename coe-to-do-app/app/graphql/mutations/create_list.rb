@@ -3,7 +3,7 @@ module Mutations
     # arguments passed to the `resolve` method
     argument :title, String, required: true
     argument :description, String, required: true
-    argument :status, String, required: true
+    argument :status, Types::ListStatusEnum, required: true
 
     # return type from the mutation
     type Types::ListType

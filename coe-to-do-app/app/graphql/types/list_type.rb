@@ -5,6 +5,6 @@ module Types
     field :id, ID, null: false
     field :title, String, null: false
     field :description, String, null: false
-    field :status, String, null: false
+    field :status, Types::ListStatusEnum, null: false
   end
 end
