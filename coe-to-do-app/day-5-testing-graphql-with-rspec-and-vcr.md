@@ -25,3 +25,13 @@ This app experiment to test VCR gem
 #### How to test 
 
 1. Run `bundle exec rspec spec/services/meow_fact_service_spec.rb`
+
+### Strong migrations gem
+
+#### Benefits
+1. Catch unsafe migrations in development
+2. Detects potentially dangerous operations
+3. Prevents them from running by default
+4. Provides instructions on safer ways to do what you want
+
+Reference : https://github.com/ankane/strong_migrations
