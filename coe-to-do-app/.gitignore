@@ -40,3 +40,5 @@
 # Ignore local vendor bundle
 /vendor/bundle
 
+# Ignore coverage reports
+/coverage

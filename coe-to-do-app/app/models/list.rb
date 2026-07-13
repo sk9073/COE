@@ -16,4 +16,5 @@
 
 class List < ApplicationRecord
   validates :status, inclusion: { in: %w[to_do in_progress done blocked], message: "%{value} is not a valid status" }
+  validates :title, uniqueness: true
 end
