@@ -10,7 +10,7 @@ module Mutations
     type Types::ListType
 
     def resolve(id: nil, title: nil, description: nil, status: nil)
-      list = List.find(id)
+      list = List.find_by(id: id)
       if list
         attributes = { title: title, description: description, status: status }.compact
         list.update!(attributes) unless attributes.empty?

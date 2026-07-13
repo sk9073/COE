@@ -25,11 +25,10 @@ RSpec.describe 'deleteList mutation', type: :graphql do
     expect(List.exists?(list.id)).to be(false)
   end
 
-  it 'raises when the list does not exist' do
-    # List.find raises ActiveRecord::RecordNotFound before the mutation's own
-    # "List not found" GraphQL::ExecutionError branch is ever reached.
-    expect {
-      execute_graphql(query, variables: { input: { id: -1 } })
-    }.to raise_error(ActiveRecord::RecordNotFound)
+  it 'returns an error when the list does not exist' do
+    result = execute_graphql(query, variables: { input: { id: -1 } })
+
+    expect(result['data']).to be_nil
+    expect(result['errors'].first['message']).to eq('List not found')
   end
 end

@@ -11,6 +11,15 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 # that will avoid rails generators crashing because migrations haven't been run yet
 # return unless Rails.env.test?
 require 'rspec/rails'
+require 'simplecov'
+
+SimpleCov.start 'rails' do
+  skip 'app/graphql/types/base_scalar.rb'
+  skip 'app/graphql/types/base_union.rb'
+  skip 'app/graphql/types/base_interface.rb'
+  skip 'app/graphql/types/node_type.rb'
+  skip 'app/graphql/resolvers/base_resolver.rb'
+end
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in

@@ -42,11 +42,10 @@ RSpec.describe 'updateList mutation', type: :graphql do
     expect(list.reload.title).to eq('Original')
   end
 
-  it 'raises when the list does not exist' do
-    # List.find raises ActiveRecord::RecordNotFound before the mutation's own
-    # "List not found" GraphQL::ExecutionError branch is ever reached.
-    expect {
-      execute_graphql(query, variables: { input: { id: -1, status: 'done' } })
-    }.to raise_error(ActiveRecord::RecordNotFound)
+  it 'returns an error when the list does not exist' do
+    result = execute_graphql(query, variables: { input: { id: -1, status: 'done' } })
+
+    expect(result['data']).to be_nil
+    expect(result['errors'].first['message']).to eq('List not found')
   end
 end

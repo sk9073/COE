@@ -7,7 +7,7 @@ module Mutations
     type Types::ListType
 
     def resolve(id: nil)
-      list = List.find(id)
+      list = List.find_by(id: id)
       if list
         list.destroy!
       else
