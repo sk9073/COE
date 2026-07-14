@@ -142,3 +142,98 @@ main {
   background-color: rgba(255, 255, 255, 0.02);
 }
 
+.todo-table button {
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  background-color: transparent;
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.todo-table button:hover {
+  background-color: #ef4444;
+  color: #fff;
+  border-color: #ef4444;
+}
+
+.todo-form {
+  display: flex;
+  gap: 12px;
+  margin-top: 1.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.todo-form input,
+.todo-form select {
+  font: inherit;
+  font-size: 0.95rem;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background-color: transparent;
+  color: var(--text-h);
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.todo-form input::placeholder {
+  color: var(--text);
+  opacity: 0.6;
+}
+
+.todo-form input[placeholder="Title"] {
+  flex: 1;
+  min-width: 150px;
+}
+
+.todo-form input[placeholder="Description"] {
+  flex: 2;
+  min-width: 200px;
+}
+
+.todo-form select {
+  cursor: pointer;
+  background-color: var(--bg);
+}
+
+.todo-form input:focus,
+.todo-form select:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.todo-form button.btn-create {
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 10px 20px;
+  background-color: #6366f1;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.todo-form button.btn-create:hover {
+  background-color: #4f46e5;
+}
+
+.todo-form button.btn-create:active {
+  transform: scale(0.98);
+}
+
+.todo-error {
+  color: #ef4444;
+  font-size: 0.9rem;
+  width: 100%;
+  text-align: left;
+  margin-top: 4px;
+}
+

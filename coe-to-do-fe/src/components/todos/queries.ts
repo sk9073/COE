@@ -20,4 +20,12 @@ export const DELETE_TODO = gql(`
   }
 `)
 
+export const CREATE_TODO = gql(`
+mutation CreateList($title: String!, $description: String!, $status:ListStatusEnum! ) {
+  createList(input: { title: $title, description: $description, status: $status }) {
+    title
+  }
+}`)
+
 export type Todo = GetTodosQuery['todos'][number]
+export type ListStatusEnum = GetTodosQuery['todos'][number]['status']

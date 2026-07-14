@@ -16,10 +16,12 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
 type Documents = {
     "\n  query GetTodos {\n    todos: allLists {\n      id\n      title\n      description\n      status\n    }\n  }\n": typeof types.GetTodosDocument,
     "\n  mutation DeleteTodo($id: ID!) {\n    deleteList(input: { id: $id }) {\n      title\n    }\n  }\n": typeof types.DeleteTodoDocument,
+    "\nmutation CreateList($title: String!, $description: String!, $status:ListStatusEnum! ) {\n  createList(input: { title: $title, description: $description, status: $status }) {\n    title\n  }\n}": typeof types.CreateListDocument,
 };
 const documents: Documents = {
     "\n  query GetTodos {\n    todos: allLists {\n      id\n      title\n      description\n      status\n    }\n  }\n": types.GetTodosDocument,
     "\n  mutation DeleteTodo($id: ID!) {\n    deleteList(input: { id: $id }) {\n      title\n    }\n  }\n": types.DeleteTodoDocument,
+    "\nmutation CreateList($title: String!, $description: String!, $status:ListStatusEnum! ) {\n  createList(input: { title: $title, description: $description, status: $status }) {\n    title\n  }\n}": types.CreateListDocument,
 };
 
 /**
@@ -44,6 +46,10 @@ export function gql(source: "\n  query GetTodos {\n    todos: allLists {\n      
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  mutation DeleteTodo($id: ID!) {\n    deleteList(input: { id: $id }) {\n      title\n    }\n  }\n"): (typeof documents)["\n  mutation DeleteTodo($id: ID!) {\n    deleteList(input: { id: $id }) {\n      title\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\nmutation CreateList($title: String!, $description: String!, $status:ListStatusEnum! ) {\n  createList(input: { title: $title, description: $description, status: $status }) {\n    title\n  }\n}"): (typeof documents)["\nmutation CreateList($title: String!, $description: String!, $status:ListStatusEnum! ) {\n  createList(input: { title: $title, description: $description, status: $status }) {\n    title\n  }\n}"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

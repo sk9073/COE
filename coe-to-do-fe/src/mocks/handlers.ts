@@ -36,4 +36,31 @@ export const handlers = [
       },
     })
   }),
+
+  graphql.mutation('CreateList', ({ variables }) => {
+    const { title, description, status } = variables
+
+    if (todos.some((todo) => todo.title === title)) {
+      return HttpResponse.json({
+        errors: [{ message: 'Title has already been taken' }],
+      })
+    }
+
+    todos.push({
+      __typename: 'List',
+      id: String(todos.length + 1),
+      title,
+      description,
+      status,
+    })
+
+    return HttpResponse.json({
+      data: {
+        createList: {
+          __typename: 'List',
+          title,
+        },
+      },
+    })
+  }),
 ]
