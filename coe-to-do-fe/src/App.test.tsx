@@ -1,11 +1,16 @@
 // src/App.test.tsx
 import { render, screen } from '@testing-library/react'
+import { ApolloProvider } from '@apollo/client/react'
+import { createApolloClient } from './apolloClient'
 import App from './App'
 
 describe('App Component', () => {
-    it('renders the main heading', () => {
-        render(<App />)
-        // Adjust the text matcher depending on what default Vite content is in your App.tsx
-        expect(screen.getByText(/Get started/i)).toBeInTheDocument()
+    it('renders the todos heading', () => {
+        render(
+            <ApolloProvider client={createApolloClient()}>
+                <App />
+            </ApolloProvider>,
+        )
+        expect(screen.getByRole('heading', { name: /todos/i })).toBeInTheDocument()
     })
 })

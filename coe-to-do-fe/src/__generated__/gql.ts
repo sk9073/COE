@@ -14,10 +14,12 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-    "\n  query GetTodosPlaceholder {\n    allLists {\n      id\n    }\n  }\n": typeof types.GetTodosPlaceholderDocument,
+    "\n  query GetTodos {\n    todos: allLists {\n      id\n      title\n      description\n      status\n    }\n  }\n": typeof types.GetTodosDocument,
+    "\n  mutation DeleteTodo($id: ID!) {\n    deleteList(input: { id: $id }) {\n      title\n    }\n  }\n": typeof types.DeleteTodoDocument,
 };
 const documents: Documents = {
-    "\n  query GetTodosPlaceholder {\n    allLists {\n      id\n    }\n  }\n": types.GetTodosPlaceholderDocument,
+    "\n  query GetTodos {\n    todos: allLists {\n      id\n      title\n      description\n      status\n    }\n  }\n": types.GetTodosDocument,
+    "\n  mutation DeleteTodo($id: ID!) {\n    deleteList(input: { id: $id }) {\n      title\n    }\n  }\n": types.DeleteTodoDocument,
 };
 
 /**
@@ -37,7 +39,11 @@ export function gql(source: string): unknown;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query GetTodosPlaceholder {\n    allLists {\n      id\n    }\n  }\n"): (typeof documents)["\n  query GetTodosPlaceholder {\n    allLists {\n      id\n    }\n  }\n"];
+export function gql(source: "\n  query GetTodos {\n    todos: allLists {\n      id\n      title\n      description\n      status\n    }\n  }\n"): (typeof documents)["\n  query GetTodos {\n    todos: allLists {\n      id\n      title\n      description\n      status\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation DeleteTodo($id: ID!) {\n    deleteList(input: { id: $id }) {\n      title\n    }\n  }\n"): (typeof documents)["\n  mutation DeleteTodo($id: ID!) {\n    deleteList(input: { id: $id }) {\n      title\n    }\n  }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};
