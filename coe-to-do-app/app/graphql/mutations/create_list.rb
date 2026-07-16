@@ -14,7 +14,7 @@ module Mutations
         description: description,
         status: status,
       )
-      Rails.cache.delete("all_lists")
+      invalidate_all_lists_cache
       list
     rescue ActiveRecord::RecordInvalid => e
       raise GraphQL::ExecutionError.new(e.record.errors.full_messages.join(", "))

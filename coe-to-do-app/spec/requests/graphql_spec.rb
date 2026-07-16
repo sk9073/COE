@@ -61,6 +61,14 @@ RSpec.describe 'GraphQL Endpoint', type: :request do
       end
     end
 
+    context 'when variables are already a plain Hash (not wrapped by Rails param parsing)' do
+      it 'returns the hash as-is' do
+        variables = { 'foo' => 'bar' }
+
+        expect(GraphqlController.new.send(:prepare_variables, variables)).to eq(variables)
+      end
+    end
+
     context 'when an error is raised' do
       it 'renders a JSON error with 500 status in development' do
         allow(Rails.env).to receive(:development?).and_return(true)
