@@ -13,7 +13,17 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
   web:
     build: .
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
@@ -24,12 +34,16 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      redis:
+        condition: service_healthy
     environment:
       DATABASE_HOST: db
       DATABASE_USER: postgres
       DATABASE_NAME: coe_to_do_app_development
       DATABASE_PASSWORD: password
       RAILS_ENV: development
+      REDIS_URL: redis://redis:6379/1
 
 volumes:
   postgres_data:
+  redis_data:

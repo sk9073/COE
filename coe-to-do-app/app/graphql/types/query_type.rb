@@ -5,7 +5,7 @@ module Types
     field :all_lists, [ Types::ListType ], null: false
 
     def all_lists
-      List.all
+      Rails.cache.fetch("all_lists", expires_in: 30.seconds) { List.all.to_a }
     end
   end
 end

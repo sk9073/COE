@@ -9,11 +9,13 @@ module Mutations
     type Types::ListType
 
     def resolve(title: nil, description: nil, status: nil)
-      List.create!(
+      list = List.create!(
         title: title,
         description: description,
         status: status,
       )
+      Rails.cache.delete("all_lists")
+      list
     rescue ActiveRecord::RecordInvalid => e
       raise GraphQL::ExecutionError.new(e.record.errors.full_messages.join(", "))
     rescue ActiveRecord::RecordNotUnique

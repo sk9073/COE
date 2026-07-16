@@ -10,6 +10,8 @@ module Mutations
       list = List.find_by(id: id)
       if list
         list.destroy!
+        Rails.cache.delete("all_lists")
+        list
       else
         raise GraphQL::ExecutionError.new("List not found")
       end

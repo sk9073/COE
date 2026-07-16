@@ -14,6 +14,7 @@ module Mutations
       if list
         attributes = { title: title, description: description, status: status }.compact
         list.update!(attributes) unless attributes.empty?
+        Rails.cache.delete("all_lists") unless attributes.empty?
         list
       else
         raise GraphQL::ExecutionError.new("List not found")
