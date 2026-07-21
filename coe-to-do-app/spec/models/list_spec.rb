@@ -25,9 +25,8 @@ RSpec.describe List, type: :model do
   end
 
   describe 'validations' do
-    it 'validates that status belongs to to_do, in_progress, done, or blocked' do
-      valid_statuses = %w[to_do in_progress done blocked]
-      valid_statuses.each do |status|
+    %w[to_do in_progress done blocked].each do |status|
+      it "is valid when status is #{status}" do
         list = build(:list, status: status)
         expect(list).to be_valid
       end
@@ -40,9 +39,8 @@ RSpec.describe List, type: :model do
       expect(list.errors[:title]).to include("has already been taken")
     end
 
-    it 'throws error for invalide status' do
-      invalid_statuses = %w[todo completed archive]
-      invalid_statuses.each do |status|
+    %w[todo completed archive].each do |status|
+      it "is invalid when status is #{status}" do
         list = build(:list, status: status)
         expect(list).not_to be_valid
         expect(list.errors[:status]).to include("#{status} is not a valid status")

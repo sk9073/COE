@@ -80,5 +80,28 @@ RSpec.describe 'GraphQL Endpoint', type: :request do
         expect(json['errors'].first['message']).to include('Unexpected parameter: 123')
       end
     end
+
+    context 'end-to-end with a real query (schema not stubbed)' do
+      before { allow(CoeToDoAppSchema).to receive(:execute).and_call_original }
+
+      it 'creates a list through the full request/response cycle' do
+        mutation = <<~GRAPHQL
+          mutation($input: CreateListInput!) {
+            createList(input: $input) { id title status }
+          }
+        GRAPHQL
+
+        post '/graphql', params: {
+          query: mutation,
+          variables: { input: { title: 'Real request test', description: 'Desc', status: 'to_do' } }
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = JSON.parse(response.body)
+        expect(json['errors']).to be_nil
+        expect(json['data']['createList']).to include('title' => 'Real request test', 'status' => 'to_do')
+        expect(List.exists?(title: 'Real request test')).to be(true)
+      end
+    end
   end
 end

@@ -56,7 +56,7 @@ RSpec.describe 'allLists query', type: :graphql do
 
     expect(result['errors']).to be_nil
     expect(result['data']['allLists']).to contain_exactly(
-      { 'id' => todo.id.to_s, 'title' => 'Todo task', 'description' => 'Desc', 'status' => 'to_do' },
+      { 'id' => todo.id.to_s, 'title' => 'Todo task', 'description' => todo.description, 'status' => 'to_do' },
     )
   end
 
@@ -69,7 +69,7 @@ RSpec.describe 'allLists query', type: :graphql do
 
     expect(result['errors']).to be_nil
     expect(result['data']['allLists']).to contain_exactly(
-      { 'id' => done.id.to_s, 'title' => 'Done task', 'description' => 'Desc', 'status' => 'done' },
+      { 'id' => done.id.to_s, 'title' => 'Done task', 'description' => done.description, 'status' => 'done' },
     )
   end
 
@@ -92,14 +92,14 @@ RSpec.describe 'allLists query', type: :graphql do
     third_result = execute_graphql(query)
 
     expect(first_result['data']['allLists']).to contain_exactly(
-      { 'id' => todo.id.to_s, 'title' => 'Todo task', 'description' => 'Desc', 'status' => 'to_do' },
+      { 'id' => todo.id.to_s, 'title' => 'Todo task', 'description' => todo.description, 'status' => 'to_do' },
     )
     expect(second_result['data']['allLists']).to contain_exactly(
-      { 'id' => done.id.to_s, 'title' => 'Done task', 'description' => 'Desc', 'status' => 'done' },
+      { 'id' => done.id.to_s, 'title' => 'Done task', 'description' => done.description, 'status' => 'done' },
     )
     expect(third_result['data']['allLists']).to contain_exactly(
-      { 'id' => todo.id.to_s, 'title' => 'Todo task', 'description' => 'Desc', 'status' => 'to_do' },
-      { 'id' => done.id.to_s, 'title' => 'Done task', 'description' => 'Desc', 'status' => 'done' },
+      { 'id' => todo.id.to_s, 'title' => 'Todo task', 'description' => todo.description, 'status' => 'to_do' },
+      { 'id' => done.id.to_s, 'title' => 'Done task', 'description' => done.description, 'status' => 'done' },
     )
   end
 
