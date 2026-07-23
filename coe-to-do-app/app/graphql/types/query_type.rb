@@ -7,15 +7,16 @@ module Types
     end
 
     def all_lists(status: nil)
-      Rails.cache.fetch(all_lists_cache_key(status), expires_in: 30.seconds) do
-        status.present? ? List.where(status: status).to_a : List.all.to_a
+      lists_cache.fetch(status) do
+        scope = status.present? ? List.where(status: status) : List.all
+        scope.to_a
       end
     end
 
     private
 
-    def all_lists_cache_key(status)
-      "all_lists/#{status || 'all'}"
+    def lists_cache
+      Lists::Cache.new
     end
   end
 end

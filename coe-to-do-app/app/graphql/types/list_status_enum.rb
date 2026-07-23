@@ -2,9 +2,10 @@
 
 module Types
   class ListStatusEnum < Types::BaseEnum
-    value "to_do", value: "to_do"
-    value "in_progress", value: "in_progress"
-    value "done", value: "done"
-    value "blocked", value: "blocked"
+    # Derived from the domain so the enum can never drift from the model's
+    # notion of a valid status.
+    ListStatus::ALL.each do |status|
+      value status, value: status
+    end
   end
 end
